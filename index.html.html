@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>개인정보 유출 피해보상 안내</title>
+<style>
+  :root{
+    --bg:#f5f6f8; --card:#ffffff; --text:#1a1d23; --sub:#60656d;
+    --accent:#2563eb; --accent-text:#ffffff; --border:#e3e5e9;
+    --danger:#dc2626; --danger-bg:#fef2f2; --danger-border:#fecaca;
+    color-scheme: light dark;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#121317; --card:#1b1d22; --text:#f2f3f5; --sub:#a3a8b3;
+      --accent:#3b82f6; --accent-text:#ffffff; --border:#2c2f36;
+      --danger:#f87171; --danger-bg:#2a1515; --danger-border:#5b2323;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#121317; --card:#1b1d22; --text:#f2f3f5; --sub:#a3a8b3;
+    --accent:#3b82f6; --accent-text:#ffffff; --border:#2c2f36;
+    --danger:#f87171; --danger-bg:#2a1515; --danger-border:#5b2323;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Pretendard,sans-serif;
+    padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+    display:flex; justify-content:center; min-height:100vh;
+  }
+  .wrap{ width:100%; max-width:440px; padding:28px 20px; }
+  .card{
+    background:var(--card); border:1px solid var(--border); border-radius:16px;
+    padding:28px 24px; margin-top:10px;
+  }
+  .badge{
+    display:inline-block; font-size:12px; font-weight:600; color:var(--accent);
+    background:rgba(37,99,235,0.1); padding:4px 10px; border-radius:999px; margin-bottom:14px;
+  }
+  h1{ font-size:20px; margin:0 0 10px; line-height:1.4; }
+  p.lead{ color:var(--sub); font-size:14px; line-height:1.6; margin:0 0 22px; }
+  label{ display:block; font-size:13px; font-weight:600; margin-bottom:6px; margin-top:16px; }
+  input{
+    width:100%; padding:12px 14px; border-radius:10px; border:1px solid var(--border);
+    background:transparent; color:var(--text); font-size:15px;
+  }
+  input:focus{ outline:none; border-color:var(--accent); }
+  button{
+    width:100%; margin-top:22px; padding:13px; border:none; border-radius:10px;
+    background:var(--accent); color:var(--accent-text); font-size:15px; font-weight:700;
+    cursor:pointer;
+  }
+  button:disabled{ opacity:0.6; cursor:default; }
+  .foot{ margin-top:16px; font-size:12px; color:var(--sub); text-align:center; }
+
+  .result{ display:none; }
+  .result.show{ display:block; }
+  .form-view.hide{ display:none; }
+
+  .alert{
+    background:var(--danger-bg); border:1px solid var(--danger-border); border-radius:12px;
+    padding:18px; margin-bottom:18px;
+  }
+  .alert-title{ color:var(--danger); font-weight:800; font-size:17px; margin:0 0 6px; }
+  .alert-body{ font-size:14px; line-height:1.6; margin:0; }
+  ul.tips{ padding-left:18px; margin:14px 0 0; font-size:14px; line-height:1.7; color:var(--text); }
+  .small{ font-size:12px; color:var(--sub); margin-top:14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+
+    <!-- 1) 피싱 유도 화면 -->
+    <div id="formView" class="form-view">
+      <span class="badge">사내 공지</span>
+      <h1>개인정보 유출에 따른 피해보상 안내</h1>
+      <p class="lead">금번 개인정보 유출 건과 관련하여 피해보상 신청을 접수받고 있습니다. 보상은 <b>신청 순서</b>에 따라 지급되며, 신청자가 많을 경우 지급까지 시간이 더 소요될 수 있습니다.</p>
+
+      <form id="phishForm">
+        <label for="name">이름</label>
+        <input id="name" type="text" placeholder="홍길동" required>
+
+        <label for="phone">연락처</label>
+        <input id="phone" type="tel" placeholder="010-0000-0000" required>
+
+        <button type="submit" id="submitBtn">입력하기</button>
+      </form>
+      <p class="foot">본 페이지는 사내 보안팀 시스템을 통해 제공됩니다.</p>
+    </div>
+
+    <!-- 2) 결과(교육) 화면 -->
+    <div id="resultView" class="result">
+      <div class="alert">
+        <p class="alert-title">⚠️ 보안이 취약하시군요!</p>
+        <p class="alert-body">이것은 사내 보안팀이 실시한 <b>모의 피싱 훈련</b>이었습니다. 실제 공격이었다면 방금 입력하신 개인정보가 외부로 유출되었을 수 있습니다.</p>
+      </div>
+      <p class="lead" style="margin-bottom:8px;">다음 번에는 이런 점을 확인해주세요</p>
+      <ul class="tips">
+        <li>발신 번호·출처가 공식 사내 채널인지 확인</li>
+        <li>URL이 회사 공식 도메인인지 확인</li>
+        <li>개인정보·연락처를 요구하는 링크는 먼저 보안팀에 문의</li>
+        <li>조금이라도 의심되면 클릭하지 않고 신고</li>
+      </ul>
+      <p class="small">훈련에 참여해 주셔서 감사합니다. 궁금한 점은 보안팀으로 문의해주세요.</p>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+document.getElementById("phishForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  document.getElementById("submitBtn").disabled = true;
+  document.getElementById("formView").classList.add("hide");
+  document.getElementById("resultView").classList.add("show");
+});
+</script>
+</body>
+</html>
